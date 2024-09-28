@@ -1,0 +1,89 @@
+import numpy as np
+import rdkit
+import pandas as pd
+
+import matplotlib.pyplot as plt
+import seaborn as sns
+from sklearn.model_selection import train_test_split
+from sklearn.metrics import confusion_matrix, classification_report, roc_curve
+
+from google.colab import files
+data=files.upload()
+
+df = pd.read_csv('ABCDEF.csv',sep=';',on_bad_lines='skip')
+#By using on_bad_lines='skip', you instruct pandas to skip any problematic lines instead of raising an error.
+
+df.head()
+#returns the first 5 rows to get a peak into the structure and values of the dataframe
+
+df.shape
+#checking the number of rows and columns in the dataframe
+
+selected_columns=['SMILES','Standard Type','Standard Value']
+
+filter_df = pd.DataFrame(df,columns=selected_columns)
+filter_df.head()
+#to have only the required columns in the dataframe - the canonical smiles notation and the value of solubility of the compound
+
+# checking the range of solubility values - max and min
+filter_df['Standard Value'].max()
+
+filter_df['Standard Value'].min()
+
+import pandas as pd
+
+# Sample data: Replace this with your actual nM data
+data = {'Concentration_nM': [100, 500, 1000, 2500]}  # Example nM values
+df = pd.DataFrame(data)
+
+# Convert nM to M
+df['Concentration_M'] = df['Concentration_nM'] * 1e-9
+
+# Display the results
+print(df)
+
+import pandas as pd
+
+# Sample data: Replace this with your actual IC50 data
+data = {'IC50': [1e-6, 5e-7, 1e-8, 2e-5]}  # Example IC50 values in Molarity
+df = pd.DataFrame(data)
+
+# Convert IC50 to pIC50
+df['pIC50'] = -np.log10(df['IC50'])
+
+# Display the results
+print(df)
+
+plt.figure(figsize=(10, 6))
+sns.boxplot(y='Standard Value', data=filter_df)
+plt.title('Box Plot of Features by Class')
+plt.ylabel('pIC50')
+plt.show()
+
+import pandas as pd
+
+# Sample data: Replace this with your actual data
+data = {'Values': [6,6.3,8,4.6]}  # Example values
+df = pd.DataFrame(data)
+
+# Calculate the range
+data_range = df['Values'].max() - df['Values'].min()
+
+# Display the results
+print(f"The range of the dataset is: {data_range}")
+
+import pandas as pd
+
+# Sample data: Replace this with your actual data
+data = {'Values': [6, 6.3, 8, 4.6]}  # Example values
+df = pd.DataFrame(data)
+
+# Calculate the rank
+df['Rank'] = df['Values'].rank(method='average')  # You can use 'min', 'max', 'first', or 'dense' as methods
+
+# Display the results
+print(df)
+
+
+
+
